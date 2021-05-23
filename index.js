@@ -7,8 +7,10 @@ document.getElementById("noise-maker").addEventListener("click", makeNoise);
 async function makeNoise() {
   //start up the audio machinery
   await Tone.start();
-  //create a synth and connect it to the main output (your speakers)
-  const synth = new Tone.Synth().toDestination();
-  //play a middle 'C' for the duration of an 8th note
-  synth.triggerAttackRelease("C4", "8n");
+  //create an audio file player, load hello.wav
+  const player = new Tone.Player({ url: "hello.wav" }).toDestination();
+  //wait for the sounds to load
+  await Tone.loaded();
+  //play a sound
+  player.start();
 }
