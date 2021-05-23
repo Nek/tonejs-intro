@@ -7,8 +7,11 @@ document.getElementById("noise-maker").addEventListener("click", makeNoise);
 async function makeNoise() {
   //start up the audio machinery
   await Tone.start();
-  //create an audio file player, load hello.wav
-  const player = new Tone.Player({ url: "hello.wav" }).toDestination();
+  //create an audio file player, load piano-loop.mp3 and make it looped
+  const player = new Tone.Player({
+    url: "piano-loop.mp3",
+    loop: true,
+  }).toDestination();
   //wait for the sounds to load
   await Tone.loaded();
   //play a sound
