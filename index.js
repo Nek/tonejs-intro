@@ -18,6 +18,13 @@ async function makeNoise() {
     url: "piano-loop.mp3",
     loop: true,
   }).connect(musicSpace);
+  const footsteps = new Tone.Player({
+    url: "footsteps.mp3",
+  }).toDestination();
+  footsteps.volume.value = -6;
+  const hello = new Tone.Player({
+    url: "hello.mp3",
+  }).toDestination();
   //this is in dB. it's a relative, not an absolute unit of loudness
   //just experiment with the numbers
   music.volume.value = -12;
@@ -30,4 +37,7 @@ async function makeNoise() {
   music.start();
   noise.start();
   doorBell.start(3);
+  footsteps.start(3);
+  footsteps.volume.rampTo(6, 11);
+  hello.start(12);
 }
