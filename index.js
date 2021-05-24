@@ -11,6 +11,9 @@ async function makeNoise() {
 
   const musicSpace = new Tone.Reverb(1).toDestination();
 
+  const doorBell = new Tone.Player({
+    url: "door-bell.mp3",
+  }).connect(musicSpace);
   const music = new Tone.Player({
     url: "piano-loop.mp3",
     loop: true,
@@ -26,4 +29,5 @@ async function makeNoise() {
   await Tone.loaded();
   music.start();
   noise.start();
+  doorBell.start(3);
 }
