@@ -9,12 +9,14 @@ async function makeNoise() {
   await Tone.start();
 
   //let's go crazy with a reverb
-  const reverb = new Tone.Reverb(10).toDestination();
-  reverb.wet.value = 0;
+  const filter = new Tone.Filter({
+    type: "lowpass",
+    frequency: 250,
+  }).toDestination();
 
   //create a panner devices. 1 is for rightmost position,
   //-1 is for the leftmost one
-  const panner = new Tone.Panner(1).connect(reverb);
+  const panner = new Tone.Panner(1).connect(filter);
 
   //create an audio file player, load piano-loop.mp3 and make it looped
   const player = new Tone.Player({
@@ -32,6 +34,5 @@ async function makeNoise() {
   player.start();
   //use ramptTo to move the sound from right to left
   panner.pan.rampTo(-1, 10);
-  //use rampTo to make the reverb more prominent
-  reverb.wet.rampTo(1, 5);
+  filter.frequency.rampTo(1600, 5);
 }
